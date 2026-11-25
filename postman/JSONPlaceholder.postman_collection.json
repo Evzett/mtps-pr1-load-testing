@@ -1,0 +1,647 @@
+{
+  "info": {
+    "name": "JSONPlaceholder — функциональные тест-кейсы",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://jsonplaceholder.typicode.com"
+    }
+  ],
+  "item": [
+    {
+      "name": "TC-01 Получение списка всех постов",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-01: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-01: тело ответа', () => { pm.expect(json).to.be.an('array').with.lengthOf(100); pm.expect(json[0]).to.have.all.keys('userId','id','title','body'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/posts",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-02 Получение поста по ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-02: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-02: тело ответа', () => { pm.expect(json.id).to.eql(1); pm.expect(json.userId).to.eql(1); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/posts/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-03 Фильтрация постов по пользователю",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-03: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-03: тело ответа', () => { pm.expect(json).to.have.lengthOf(10); json.forEach(p => pm.expect(p.userId).to.eql(1)); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/posts?userId=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-04 Получение несуществующего поста",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-04: статус 404', () => pm.response.to.have.status(404));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-04: тело ответа', () => { pm.expect(json).to.eql({}); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/posts/0",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts",
+            "0"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-05 Получение комментариев к посту (вложенный ресурс)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-05: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-05: тело ответа', () => { pm.expect(json).to.have.lengthOf(5); json.forEach(c => { pm.expect(c.postId).to.eql(1); pm.expect(c.email).to.include('@'); }); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/posts/1/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts",
+            "1",
+            "comments"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-06 Фильтрация комментариев по посту",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-06: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-06: тело ответа', () => { pm.expect(json).to.have.lengthOf(5); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/comments?postId=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "comments"
+          ],
+          "query": [
+            {
+              "key": "postId",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-07 Получение списка пользователей",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-07: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-07: тело ответа', () => { pm.expect(json).to.have.lengthOf(10); pm.expect(json[0]).to.include.keys('id','name','username','email','address','company'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-08 Получение пользователя по ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-08: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-08: тело ответа', () => { pm.expect(json.username).to.eql('Bret'); pm.expect(json.address.geo).to.have.all.keys('lat','lng'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-09 Получение несуществующего пользователя",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-09: статус 404', () => pm.response.to.have.status(404));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-09: тело ответа', () => { pm.expect(json).to.eql({}); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/9999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "9999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-10 Фильтрация задач по статусу",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-10: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-10: тело ответа', () => { pm.expect(json.length).to.be.above(0); json.forEach(t => pm.expect(t.completed).to.be.true); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/todos?completed=true",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "todos"
+          ],
+          "query": [
+            {
+              "key": "completed",
+              "value": "true"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-11 Получение задачи по ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-11: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-11: тело ответа', () => { pm.expect(json).to.have.all.keys('userId','id','title','completed'); pm.expect(json.completed).to.be.a('boolean'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/todos/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "todos",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-12 Получение фотографий альбома (вложенный ресурс)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-12: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-12: тело ответа', () => { pm.expect(json).to.have.lengthOf(50); pm.expect(json[0].url).to.match(/^https?:\\/\\//); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/albums/1/photos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "albums",
+            "1",
+            "photos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-13 Фильтрация по несуществующему значению",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-13: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-13: тело ответа', () => { pm.expect(json).to.be.an('array').that.is.empty; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/posts?userId=9999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "9999"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-14 Создание поста",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-14: статус 201', () => pm.response.to.have.status(201));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-14: тело ответа', () => { pm.expect(json.id).to.eql(101); pm.expect(json.title).to.eql('load test'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json; charset=UTF-8"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/posts",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"load test\", \"body\": \"created by test\", \"userId\": 1}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "TC-15 Полное обновление поста",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-15: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-15: тело ответа', () => { pm.expect(json.title).to.eql('updated'); pm.expect(json.body).to.eql('updated body'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json; charset=UTF-8"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/posts/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"id\": 1, \"title\": \"updated\", \"body\": \"updated body\", \"userId\": 1}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "TC-16 Частичное обновление поста",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-16: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-16: тело ответа', () => { pm.expect(json.title).to.eql('patched'); pm.expect(json.body).to.be.a('string').and.not.empty; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json; charset=UTF-8"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/posts/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"patched\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "TC-17 Удаление поста",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-17: статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "pm.test('Заголовок Content-Type: application/json', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "const json = pm.response.json();",
+              "pm.test('TC-17: тело ответа', () => { pm.expect(json).to.eql({}); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/posts/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TC-18 Обращение к несуществующему ресурсу",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('TC-18: статус 404', () => pm.response.to.have.status(404));",
+              "pm.test('Время ответа < 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/unknown-resource",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "unknown-resource"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,438 @@
+[
+  {
+    "profile": "П1 «Плавный»",
+    "duration_s": 363,
+    "vusers_created": 1320,
+    "vusers_completed": 1320,
+    "vusers_failed": 0,
+    "requests": 3575,
+    "responses": 3575,
+    "codes": {
+      "200": 3336,
+      "404": 120,
+      "201": 119
+    },
+    "errors": 0,
+    "error_rate_pct": 0.0,
+    "avg_rps": 9.8,
+    "peak_rps": 15.2,
+    "rt": {
+      "min": 274,
+      "mean": 375.4,
+      "median": 295.9,
+      "p90": 550.1,
+      "p95": 572.6,
+      "p99": 820.7,
+      "max": 1433
+    },
+    "downloaded_mb": 18.8,
+    "endpoints": {
+      "GET /albums/{id}/photos": {
+        "median": 295.9,
+        "p95": 572.6,
+        "p99": 671.9,
+        "max": 835
+      },
+      "GET /posts/0 (404)": {
+        "median": 295.9,
+        "p95": 354.3,
+        "p99": 415.8,
+        "max": 806
+      },
+      "GET /photos/{id}": {
+        "median": 539.2,
+        "p95": 632.8,
+        "p99": 742.6,
+        "max": 1118
+      },
+      "GET /posts": {
+        "median": 290.1,
+        "p95": 399.5,
+        "p99": 632.8,
+        "max": 988
+      },
+      "GET /posts/{id}": {
+        "median": 290.1,
+        "p95": 539.2,
+        "p99": 685.5,
+        "max": 944
+      },
+      "GET /users": {
+        "median": 290.1,
+        "p95": 399.5,
+        "p99": 468.8,
+        "max": 711
+      },
+      "GET /posts/{id}/comments": {
+        "median": 290.1,
+        "p95": 608,
+        "p99": 772.9,
+        "max": 1433
+      },
+      "GET /users/{id}": {
+        "median": 290.1,
+        "p95": 407.5,
+        "p99": 658.6,
+        "max": 990
+      },
+      "GET /todos?filter": {
+        "median": 290.1,
+        "p95": 399.5,
+        "p99": 561.2,
+        "max": 1085
+      },
+      "POST /posts": {
+        "median": 539.2,
+        "p95": 1043.3,
+        "p99": 1153.1,
+        "max": 1275
+      },
+      "PUT /posts/{id}": {
+        "median": 539.2,
+        "p95": 620.3,
+        "p99": 685.5,
+        "max": 764
+      },
+      "PATCH /posts/{id}": {
+        "median": 528.6,
+        "p95": 645.6,
+        "p99": 742.6,
+        "max": 973
+      },
+      "DELETE /posts/{id}": {
+        "median": 528.6,
+        "p95": 620.3,
+        "p99": 713.5,
+        "max": 1357
+      }
+    },
+    "chart": "results\\charts\\p1_smooth.png"
+  },
+  {
+    "profile": "П2 «Быстрый»",
+    "duration_s": 122,
+    "vusers_created": 750,
+    "vusers_completed": 750,
+    "vusers_failed": 0,
+    "requests": 2053,
+    "responses": 2053,
+    "codes": {
+      "200": 1912,
+      "201": 74,
+      "404": 67
+    },
+    "errors": 0,
+    "error_rate_pct": 0.0,
+    "avg_rps": 16.8,
+    "peak_rps": 23.4,
+    "rt": {
+      "min": 271,
+      "mean": 354.3,
+      "median": 295.9,
+      "p90": 539.2,
+      "p95": 550.1,
+      "p99": 699.4,
+      "max": 1328
+    },
+    "downloaded_mb": 11.3,
+    "endpoints": {
+      "GET /users": {
+        "median": 290.1,
+        "p95": 347.3,
+        "p99": 478.3,
+        "max": 623
+      },
+      "GET /users/{id}": {
+        "median": 290.1,
+        "p95": 354.3,
+        "p99": 507.8,
+        "max": 586
+      },
+      "GET /todos?filter": {
+        "median": 295.9,
+        "p95": 340.4,
+        "p99": 658.6,
+        "max": 1061
+      },
+      "GET /albums/{id}/photos": {
+        "median": 290.1,
+        "p95": 468.8,
+        "p99": 550.1,
+        "max": 624
+      },
+      "GET /photos/{id}": {
+        "median": 539.2,
+        "p95": 572.6,
+        "p99": 944,
+        "max": 1328
+      },
+      "GET /posts": {
+        "median": 290.1,
+        "p95": 327.1,
+        "p99": 507.8,
+        "max": 593
+      },
+      "GET /posts/{id}": {
+        "median": 290.1,
+        "p95": 314.2,
+        "p99": 450.4,
+        "max": 537
+      },
+      "GET /posts/{id}/comments": {
+        "median": 290.1,
+        "p95": 333.7,
+        "p99": 459.5,
+        "max": 1076
+      },
+      "POST /posts": {
+        "median": 528.6,
+        "p95": 1002.4,
+        "p99": 1022.7,
+        "max": 1081
+      },
+      "PUT /posts/{id}": {
+        "median": 539.2,
+        "p95": 572.6,
+        "p99": 699.4,
+        "max": 848
+      },
+      "PATCH /posts/{id}": {
+        "median": 528.6,
+        "p95": 550.1,
+        "p99": 608,
+        "max": 825
+      },
+      "DELETE /posts/{id}": {
+        "median": 518.1,
+        "p95": 550.1,
+        "p99": 804.5,
+        "max": 860
+      },
+      "GET /posts/0 (404)": {
+        "median": 290.1,
+        "p95": 333.7,
+        "p99": 361.5,
+        "max": 546
+      }
+    },
+    "chart": "results\\charts\\p2_fast.png"
+  },
+  {
+    "profile": "П3 «Пиковый»",
+    "duration_s": 162,
+    "vusers_created": 490,
+    "vusers_completed": 490,
+    "vusers_failed": 0,
+    "requests": 1340,
+    "responses": 1340,
+    "codes": {
+      "200": 1251,
+      "404": 47,
+      "201": 42
+    },
+    "errors": 0,
+    "error_rate_pct": 0.0,
+    "avg_rps": 8.3,
+    "peak_rps": 32.7,
+    "rt": {
+      "min": 269,
+      "mean": 339.5,
+      "median": 290.1,
+      "p90": 528.6,
+      "p95": 539.2,
+      "p99": 572.6,
+      "max": 1032
+    },
+    "downloaded_mb": 7.3,
+    "endpoints": {
+      "GET /posts": {
+        "median": 290.1,
+        "p95": 308,
+        "p99": 314.2,
+        "max": 439
+      },
+      "GET /posts/{id}": {
+        "median": 290.1,
+        "p95": 301.9,
+        "p99": 314.2,
+        "max": 544
+      },
+      "GET /posts/{id}/comments": {
+        "median": 290.1,
+        "p95": 308,
+        "p99": 320.6,
+        "max": 331
+      },
+      "GET /posts/0 (404)": {
+        "median": 290.1,
+        "p95": 301.9,
+        "p99": 308,
+        "max": 310
+      },
+      "GET /users": {
+        "median": 290.1,
+        "p95": 308,
+        "p99": 314.2,
+        "max": 323
+      },
+      "GET /albums/{id}/photos": {
+        "median": 290.1,
+        "p95": 308,
+        "p99": 308,
+        "max": 307
+      },
+      "GET /users/{id}": {
+        "median": 290.1,
+        "p95": 308,
+        "p99": 314.2,
+        "max": 328
+      },
+      "GET /photos/{id}": {
+        "median": 539.2,
+        "p95": 561.2,
+        "p99": 572.6,
+        "max": 577
+      },
+      "GET /todos?filter": {
+        "median": 290.1,
+        "p95": 308,
+        "p99": 314.2,
+        "max": 337
+      },
+      "POST /posts": {
+        "median": 528.6,
+        "p95": 1002.4,
+        "p99": 1022.7,
+        "max": 1032
+      },
+      "PUT /posts/{id}": {
+        "median": 539.2,
+        "p95": 550.1,
+        "p99": 561.2,
+        "max": 569
+      },
+      "PATCH /posts/{id}": {
+        "median": 528.6,
+        "p95": 539.2,
+        "p99": 550.1,
+        "max": 549
+      },
+      "DELETE /posts/{id}": {
+        "median": 528.6,
+        "p95": 539.2,
+        "p99": 539.2,
+        "max": 552
+      }
+    },
+    "chart": "results\\charts\\p3_spike.png"
+  },
+  {
+    "profile": "П4 «Ступенчатый»",
+    "duration_s": 272,
+    "vusers_created": 1170,
+    "vusers_completed": 1170,
+    "vusers_failed": 0,
+    "requests": 3190,
+    "responses": 3190,
+    "codes": {
+      "200": 2981,
+      "404": 106,
+      "201": 103
+    },
+    "errors": 0,
+    "error_rate_pct": 0.0,
+    "avg_rps": 11.7,
+    "peak_rps": 23.2,
+    "rt": {
+      "min": 274,
+      "mean": 349.5,
+      "median": 290.1,
+      "p90": 539.2,
+      "p95": 550.1,
+      "p99": 854.2,
+      "max": 1171
+    },
+    "downloaded_mb": 17.6,
+    "endpoints": {
+      "GET /albums/{id}/photos": {
+        "median": 290.1,
+        "p95": 314.2,
+        "p99": 645.6,
+        "max": 866
+      },
+      "GET /photos/{id}": {
+        "median": 539.2,
+        "p95": 685.5,
+        "p99": 982.6,
+        "max": 1107
+      },
+      "GET /posts": {
+        "median": 290.1,
+        "p95": 308,
+        "p99": 424.2,
+        "max": 867
+      },
+      "GET /users": {
+        "median": 290.1,
+        "p95": 314.2,
+        "p99": 432.7,
+        "max": 767
+      },
+      "GET /posts/{id}": {
+        "median": 290.1,
+        "p95": 327.1,
+        "p99": 671.9,
+        "max": 811
+      },
+      "GET /posts/{id}/comments": {
+        "median": 290.1,
+        "p95": 354.3,
+        "p99": 528.6,
+        "max": 784
+      },
+      "GET /users/{id}": {
+        "median": 290.1,
+        "p95": 320.6,
+        "p99": 487.9,
+        "max": 839
+      },
+      "GET /todos?filter": {
+        "median": 290.1,
+        "p95": 320.6,
+        "p99": 671.9,
+        "max": 903
+      },
+      "GET /posts/0 (404)": {
+        "median": 290.1,
+        "p95": 308,
+        "p99": 320.6,
+        "max": 425
+      },
+      "POST /posts": {
+        "median": 528.6,
+        "p95": 1022.7,
+        "p99": 1043.3,
+        "max": 1084
+      },
+      "PUT /posts/{id}": {
+        "median": 539.2,
+        "p95": 572.6,
+        "p99": 742.6,
+        "max": 971
+      },
+      "PATCH /posts/{id}": {
+        "median": 518.1,
+        "p95": 561.2,
+        "p99": 685.5,
+        "max": 1070
+      },
+      "DELETE /posts/{id}": {
+        "median": 528.6,
+        "p95": 550.1,
+        "p99": 963.1,
+        "max": 1171
+      }
+    },
+    "chart": "results\\charts\\p4_steps.png"
+  }
+]

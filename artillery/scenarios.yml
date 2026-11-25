@@ -1,0 +1,106 @@
+# Сценарии нагрузочного тестирования JSONPlaceholder.
+# Построены на основе функциональных тест-кейсов TC-01…TC-18 (каталог postman/).
+# Профиль нагрузки (фазы) задаётся отдельным файлом в artillery/profiles/:
+#   artillery run --config artillery/profiles/p1_smooth.yml artillery/scenarios.yml
+config:
+  target: "https://jsonplaceholder.typicode.com"
+  http:
+    timeout: 10          # таймаут запроса, с
+  defaults:
+    headers:
+      # без сжатия: иначе Artillery не разбирает тело ответа для capture
+      Accept-Encoding: "identity"
+  plugins:
+    expect: {}           # проверки ответов (статус, content-type)
+    ensure: {}           # критерии успешности прогона (SLA)
+    metrics-by-endpoint:
+      useOnlyRequestNames: true
+  ensure:
+    thresholds:
+      - http.response_time.p95: 1500   # 95-й процентиль < 1,5 с
+    maxErrorRate: 1                     # не более 1 % ошибок
+
+scenarios:
+  # S1 — чтение ленты постов (TC-01, TC-02, TC-05); самый частый сценарий
+  - name: "S1 Чтение постов"
+    weight: 4
+    flow:
+      - get:
+          url: "/posts"
+          name: "GET /posts"
+          expect: [{ statusCode: 200 }, { contentType: json }]
+      - think: 1
+      - get:
+          url: "/posts/{{ $randomNumber(1, 100) }}"
+          name: "GET /posts/{id}"
+          capture: { json: "$.id", as: "postId" }
+          expect: [{ statusCode: 200 }]
+      - get:
+          url: "/posts/{{ postId }}/comments"
+          name: "GET /posts/{id}/comments"
+          expect: [{ statusCode: 200 }]
+
+  # S2 — профиль пользователя и его задачи (TC-07, TC-08, TC-10)
+  - name: "S2 Пользователи и задачи"
+    weight: 3
+    flow:
+      - get:
+          url: "/users"
+          name: "GET /users"
+          expect: [{ statusCode: 200 }]
+      - think: 1
+      - get:
+          url: "/users/{{ $randomNumber(1, 10) }}"
+          name: "GET /users/{id}"
+          capture: { json: "$.id", as: "userId" }
+          expect: [{ statusCode: 200 }]
+      - get:
+          url: "/todos?userId={{ userId }}&completed=true"
+          name: "GET /todos?filter"
+          expect: [{ statusCode: 200 }]
+
+  # S3 — просмотр альбома (TC-12)
+  - name: "S3 Фотоальбомы"
+    weight: 2
+    flow:
+      - get:
+          url: "/albums/{{ $randomNumber(1, 100) }}/photos"
+          name: "GET /albums/{id}/photos"
+          expect: [{ statusCode: 200 }]
+      - get:
+          url: "/photos/{{ $randomNumber(1, 5000) }}"
+          name: "GET /photos/{id}"
+          expect: [{ statusCode: 200 }]
+
+  # S4 — операции записи (TC-14 … TC-17)
+  - name: "S4 Создание и изменение постов"
+    weight: 1
+    flow:
+      - post:
+          url: "/posts"
+          name: "POST /posts"
+          json: { title: "load test", body: "artillery", userId: 1 }
+          expect: [{ statusCode: 201 }]
+      - put:
+          url: "/posts/1"
+          name: "PUT /posts/{id}"
+          json: { id: 1, title: "updated", body: "artillery", userId: 1 }
+          expect: [{ statusCode: 200 }]
+      - patch:
+          url: "/posts/1"
+          name: "PATCH /posts/{id}"
+          json: { title: "patched" }
+          expect: [{ statusCode: 200 }]
+      - delete:
+          url: "/posts/1"
+          name: "DELETE /posts/{id}"
+          expect: [{ statusCode: 200 }]
+
+  # S5 — негативный сценарий (TC-04): ожидаемый ответ 404
+  - name: "S5 Несуществующий ресурс"
+    weight: 1
+    flow:
+      - get:
+          url: "/posts/0"
+          name: "GET /posts/0 (404)"
+          expect: [{ statusCode: 404 }]

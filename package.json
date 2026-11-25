@@ -1,0 +1,19 @@
+{
+  "name": "pr1-load-testing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Практическая работа №1: нагрузочное тестирование JSONPlaceholder (Postman/Newman + Artillery)",
+  "scripts": {
+    "functional": "newman run postman/JSONPlaceholder.postman_collection.json -r cli,json,htmlextra --reporter-json-export results/newman_report.json --reporter-htmlextra-export results/newman_report.html",
+    "load:smoke": "artillery run --config artillery/profiles/p0_smoke.yml --output results/p0_smoke.json artillery/scenarios.yml",
+    "load:p1": "artillery run --config artillery/profiles/p1_smooth.yml --output results/p1_smooth.json artillery/scenarios.yml",
+    "load:p2": "artillery run --config artillery/profiles/p2_fast.yml --output results/p2_fast.json artillery/scenarios.yml",
+    "load:p3": "artillery run --config artillery/profiles/p3_spike.yml --output results/p3_spike.json artillery/scenarios.yml",
+    "load:p4": "artillery run --config artillery/profiles/p4_steps.yml --output results/p4_steps.json artillery/scenarios.yml"
+  },
+  "devDependencies": {
+    "artillery": "^2.0.34",
+    "newman": "^6.2.3",
+    "newman-reporter-htmlextra": "^1.23.1"
+  }
+}

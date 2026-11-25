@@ -1,0 +1,22 @@
+# П3 «Пиковый» (spike): фоновая нагрузка, внезапный всплеск за 10 с, удержание 20 с,
+# мгновенный спад и восстановление на фоновой нагрузке.
+# Ожидаемый пик ≈ 12 × 2,7 ≈ 32 RPS.
+config:
+  phases:
+    - name: "Фон 1 ВП/с"
+      duration: 60
+      arrivalRate: 1
+    - name: "Всплеск 1→12 ВП/с"
+      duration: 10
+      arrivalRate: 1
+      rampTo: 12
+    - name: "Пик 12 ВП/с"
+      duration: 20
+      arrivalRate: 12
+    - name: "Спад 12→1 ВП/с"
+      duration: 10
+      arrivalRate: 12
+      rampTo: 1
+    - name: "Восстановление 1 ВП/с"
+      duration: 60
+      arrivalRate: 1

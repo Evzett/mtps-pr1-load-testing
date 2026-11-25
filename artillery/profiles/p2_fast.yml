@@ -1,0 +1,15 @@
+# П2 «Быстрый»: резкое нарастание (30 с), плато (60 с), резкий спад (30 с).
+# Ожидаемый пик ≈ 8 × 2,7 ≈ 21 RPS.
+config:
+  phases:
+    - name: "Нарастание 1→8 ВП/с"
+      duration: 30
+      arrivalRate: 1
+      rampTo: 8
+    - name: "Плато 8 ВП/с"
+      duration: 60
+      arrivalRate: 8
+    - name: "Спад 8→1 ВП/с"
+      duration: 30
+      arrivalRate: 8
+      rampTo: 1

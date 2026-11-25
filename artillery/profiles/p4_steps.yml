@@ -1,0 +1,11 @@
+# П4 «Ступенчатый»: нагрузка растёт ступенями по 45 с (2→4→6→8 ВП/с),
+# затем снижается ступенями (4→2). Позволяет увидеть зависимость времени ответа от RPS.
+# Ожидаемый пик ≈ 8 × 2,7 ≈ 21 RPS.
+config:
+  phases:
+    - { name: "Ступень 2 ВП/с", duration: 45, arrivalRate: 2 }
+    - { name: "Ступень 4 ВП/с", duration: 45, arrivalRate: 4 }
+    - { name: "Ступень 6 ВП/с", duration: 45, arrivalRate: 6 }
+    - { name: "Ступень 8 ВП/с", duration: 45, arrivalRate: 8 }
+    - { name: "Спад 4 ВП/с",    duration: 45, arrivalRate: 4 }
+    - { name: "Спад 2 ВП/с",    duration: 45, arrivalRate: 2 }

@@ -1,0 +1,145 @@
+﻿JSONPlaceholder — функциональные тест-кейсы
+
+→ TC-01 Получение списка всех постов
+  GET https://jsonplaceholder.typicode.com/posts [200 OK, 28.48kB, 990ms]
+  √  TC-01: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-01: тело ответа
+
+→ TC-02 Получение поста по ID
+  GET https://jsonplaceholder.typicode.com/posts/1 [200 OK, 1.24kB, 295ms]
+  √  TC-02: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-02: тело ответа
+
+→ TC-03 Фильтрация постов по пользователю
+  GET https://jsonplaceholder.typicode.com/posts?userId=1 [200 OK, 3.69kB, 310ms]
+  √  TC-03: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-03: тело ответа
+
+→ TC-04 Получение несуществующего поста
+  GET https://jsonplaceholder.typicode.com/posts/0 [404 Not Found, 935B, 311ms]
+  √  TC-04: статус 404
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-04: тело ответа
+
+→ TC-05 Получение комментариев к посту (вложенный ресурс)
+  GET https://jsonplaceholder.typicode.com/posts/1/comments [200 OK, 2.46kB, 293ms]
+  √  TC-05: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-05: тело ответа
+
+→ TC-06 Фильтрация комментариев по посту
+  GET https://jsonplaceholder.typicode.com/comments?postId=1 [200 OK, 2.47kB, 305ms]
+  √  TC-06: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-06: тело ответа
+
+→ TC-07 Получение списка пользователей
+  GET https://jsonplaceholder.typicode.com/users [200 OK, 6.6kB, 307ms]
+  √  TC-07: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-07: тело ответа
+
+→ TC-08 Получение пользователя по ID
+  GET https://jsonplaceholder.typicode.com/users/1 [200 OK, 1.46kB, 306ms]
+  √  TC-08: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-08: тело ответа
+
+→ TC-09 Получение несуществующего пользователя
+  GET https://jsonplaceholder.typicode.com/users/9999 [404 Not Found, 932B, 308ms]
+  √  TC-09: статус 404
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-09: тело ответа
+
+→ TC-10 Фильтрация задач по статусу
+  GET https://jsonplaceholder.typicode.com/todos?completed=true [200 OK, 11.92kB, 300ms]
+  √  TC-10: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-10: тело ответа
+
+→ TC-11 Получение задачи по ID
+  GET https://jsonplaceholder.typicode.com/todos/1 [200 OK, 1.22kB, 291ms]
+  √  TC-11: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-11: тело ответа
+
+→ TC-12 Получение фотографий альбома (вложенный ресурс)
+  GET https://jsonplaceholder.typicode.com/albums/1/photos [200 OK, 11.17kB, 315ms]
+  √  TC-12: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-12: тело ответа
+
+→ TC-13 Фильтрация по несуществующему значению
+  GET https://jsonplaceholder.typicode.com/posts?userId=9999 [200 OK, 939B, 303ms]
+  √  TC-13: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-13: тело ответа
+
+→ TC-14 Создание поста
+  POST https://jsonplaceholder.typicode.com/posts [201 Created, 1.12kB, 541ms]
+  √  TC-14: статус 201
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-14: тело ответа
+
+→ TC-15 Полное обновление поста
+  PUT https://jsonplaceholder.typicode.com/posts/1 [200 OK, 1.02kB, 539ms]
+  √  TC-15: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-15: тело ответа
+
+→ TC-16 Частичное обновление поста
+  PATCH https://jsonplaceholder.typicode.com/posts/1 [200 OK, 1.17kB, 536ms]
+  √  TC-16: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-16: тело ответа
+
+→ TC-17 Удаление поста
+  DELETE https://jsonplaceholder.typicode.com/posts/1 [200 OK, 916B, 533ms]
+  √  TC-17: статус 200
+  √  Время ответа < 2000 мс
+  √  Заголовок Content-Type: application/json
+  √  TC-17: тело ответа
+
+→ TC-18 Обращение к несуществующему ресурсу
+  GET https://jsonplaceholder.typicode.com/unknown-resource [404 Not Found, 929B, 289ms]
+  √  TC-18: статус 404
+  √  Время ответа < 2000 мс
+
+┌─────────────────────────┬─────────────────────┬────────────────────┐
+│                         │            executed │             failed │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│              iterations │                   1 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│                requests │                  18 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│            test-scripts │                  18 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│      prerequest-scripts │                   0 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│              assertions │                  70 │                  0 │
+├─────────────────────────┴─────────────────────┴────────────────────┤
+│ total run duration: 8.6s                                           │
+├────────────────────────────────────────────────────────────────────┤
+│ total data received: 61.37kB (approx)                              │
+├────────────────────────────────────────────────────────────────────┤
+│ average response time: 392ms [min: 289ms, max: 990ms, s.d.: 174ms] │
+└────────────────────────────────────────────────────────────────────┘
