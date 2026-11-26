@@ -1,2 +1,6 @@
 ﻿node_modules/
 __pycache__/
+
+# отчёты и скриншоты с личными данными не публикуются
+report/
+screenshots/
